@@ -44,7 +44,11 @@ class ExtensionProvider implements DataProviderInterface
             }
 
             if ($isv11) {
-                $data['extensions'][$key] = $emConfUtility->includeEmConf($key, $f['packagePath']);
+                if ($emConfUtility->includeEmConf($key, $f['packagePath'])) {
+                    $data['extensions'][$key] = $emConfUtility->includeEmConf($key, $f['packagePath']);
+                } else {
+                    $data['extensions'][$key] = $f;
+                }
             } elseif ($isv10) {
                 $data['extensions'][$key] = $emConfUtility->includeEmConf($key, $f);
             } else {
